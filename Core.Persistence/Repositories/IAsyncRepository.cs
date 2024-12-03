@@ -12,13 +12,13 @@ public interface IAsyncRepository<TEntity, TEntityId> : IQueryable<TEntity>
     where TEntity : Entity<TEntityId>
 {
     Task<TEntity?> GetAsync(
-        Expression<Func<TEntity,bool>> predicate,
-        Func<IQueryable<TEntity>, IIncludableQueryable<TEntity,object>>? include = null,
+        Expression<Func<TEntity, bool>> predicate,
+        Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
         bool withDeleted = false,
         bool enableTracking = true,
         CancellationToken cancellationToken = default);
 
-    Task<IPaginate<TEntity>> GetListAsync(
+    Task<Paginate<TEntity>> GetListAsync(
         Expression<Func<TEntity, bool>>? predicate = null,
         Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
         Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
@@ -29,7 +29,7 @@ public interface IAsyncRepository<TEntity, TEntityId> : IQueryable<TEntity>
         CancellationToken cancellationToken = default
         );
 
-    Task<IPaginate<TEntity>> GetListByDynamicAsync(
+    Task<Paginate<TEntity>> GetListByDynamicAsync(
         DynamicQuery dynamic,
         Expression<Func<TEntity, bool>>? predicate = null,
         Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
@@ -42,7 +42,7 @@ public interface IAsyncRepository<TEntity, TEntityId> : IQueryable<TEntity>
         );
 
     Task<bool> AnyAsync(
-        Expression<Func<TEntity,bool>>? predicate = null,
+        Expression<Func<TEntity, bool>>? predicate = null,
         bool withDeleted = false,
         bool enableTracking = true,
         CancellationToken cancellationToken = default
