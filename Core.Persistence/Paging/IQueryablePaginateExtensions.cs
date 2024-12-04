@@ -31,4 +31,23 @@ public static class IQueryablePaginateExtensions
         return list;
     }
 
+    public static Paginate<T> ToPaginate<T>(
+    this IQueryable<T> source,
+    int index,
+    int size
+    )
+    {
+        int count = source.Count();
+        var items = source.Skip(index * size).ToList();
+
+        Paginate<T> list = new()
+        {
+            Index = index,
+            Count = count,
+            Items = items,
+            Size = size,
+            Pages = (int)Math.Ceiling(count / (double)size)
+        };
+        return list;
+    }
 }
