@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MediatR;
 using Application.Features.Brands.Commands.Create;
+using Domain.Entities;
 
 namespace Application;
 
@@ -14,7 +15,6 @@ public static class ApplicationServiceRegistration
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
-
         services.AddMediatR(configuration =>
         {
             configuration.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
