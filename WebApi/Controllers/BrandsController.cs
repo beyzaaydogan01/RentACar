@@ -1,4 +1,5 @@
 ﻿using Application.Features.Brands.Commands.Create;
+using Application.Features.Brands.Queries.GetById;
 using Application.Features.Brands.Queries.GetList;
 using Core.Application.Requests;
 using Core.Application.Responses;
@@ -13,7 +14,7 @@ namespace WebApi.Controllers
     public class BrandsController : BaseController
     {
         [HttpPost]
-        public async Task<IActionResult> Add([FromBody]CreateBrandCommand createBrandCommand)
+        public async Task<IActionResult> Add([FromBody] CreateBrandCommand createBrandCommand)
         {
             CreatedBrandResponse response = await Mediator.Send(createBrandCommand);
             return Ok(response);
@@ -25,6 +26,14 @@ namespace WebApi.Controllers
             GetListBrandQuery getListBrandQuery = new() { PageRequest = pageRequest };
             GetListResponse<GetListBrandListItemDto> getListResponse = await Mediator.Send(getListBrandQuery);
             return Ok(getListResponse);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById([FromRoute] Guid id)
+        {
+            GetByIdBrandQuery getByIdBrandQuery = new() { Id = id };
+            GetByIdBrandResponse getByIdBrandResponse = await Mediator.Send(getByIdBrandQuery);
+            return Ok(getByIdBrandResponse);
         }
     }
 }
